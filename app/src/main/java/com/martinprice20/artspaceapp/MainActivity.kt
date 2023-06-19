@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.martinprice20.artspaceapp.ui.theme.ArtSpaceAppTheme
 import java.util.*
 
@@ -75,13 +78,20 @@ class MainActivity : ComponentActivity() {
                     .background(MaterialTheme.colorScheme.tertiaryContainer),
                 color = MaterialTheme.colorScheme.background
             ) {
-                Column(verticalArrangement = Arrangement.Center) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                ) {
                     ArtImageAndText(currentArtWork)
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(
-                        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(start = 8.dp, end = 8.dp)
+
                     ) {
                         Button(onClick = {
                             var currentIndex = gallery.indexOf(currentArtWork)
@@ -133,11 +143,15 @@ class MainActivity : ComponentActivity() {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .padding(24.dp)
-                    .size(600.dp)
+                    .size(550.dp)
             )
             Row(modifier = Modifier.padding(horizontal = 12.dp)) {
-                Text("Artwork: ")
-                Text(artWork.name)
+                Text("Artwork: ",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp)
+                Text(artWork.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp)
             }
             Row(modifier = Modifier.padding(horizontal = 12.dp)) {
                 Text("Artist: ")
